@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Arrastra y Soltar</title>
+         
+    </head>
+    <body>
+
+      <input type="file" id="theBinaryFile" onchange="onLoadBinaryFile()"/>
+      <img id="theImage"></img>
+      <script type="text/javascript">
+      function onLoadBinaryFile()
+      {
+          var theFileElem = document.getElementById("theBinaryFile");
+          if (theFileElem.files.length != 0 && theFileElem.files[0].type.match(/image.*/))
+          {
+              var reader = new FileReader();
+              reader.onload = function(e){
+                  var theImgElem = document.getElementById("theImage");
+                  theImgElem.src = e.target.result;
+              };
+              reader.onerror = function(e){
+                  alert("Cannot load binary file");
+              };
+              reader.readAsDataURL(theFileElem.files[0]);
+          }else {
+              alert("Please select a binary file");
+          }
+      }
+      </script>
+                       
+    </body>
+</html>
