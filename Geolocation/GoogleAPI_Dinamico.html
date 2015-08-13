@@ -16,6 +16,11 @@
     </style>
   </head>
   <body>
+    
+    <p id="demo">Click the button to get your position.</p>
+    
+    <button onclick="getLocation()">Try It</button>
+
     <div id="map"></div>
     <script>
 
@@ -27,13 +32,18 @@ function getLocation() {
     }
 }
 
-
+var latitud, longitud;
 function showPosition(position) {
-    var latlon = position.coords.latitude + "," + position.coords.longitude;
+    latitud = position.coords.latitude;
+    longitud = position.coords.longitude;
 
-    var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
-    +latlon+"&zoom=14&size=400x300&sensor=false";
-    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+    var google_map_script = document.createElement('script');
+    
+    google_map_script.setAttribute('src','https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap');
+    
+    document.head.appendChild(google_map_script);
+
+    //document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
 }
 
 
@@ -57,10 +67,10 @@ function showError(error) {
 
 
 
-function initMap(latitude, longitude) {
+function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
-    center: {lat: latitude, lng: longitude}
+    center: {lat: latitud, lng: longitud}
   });
 
   var layer = new google.maps.visualization.DynamicMapsEngineLayer({
@@ -83,9 +93,6 @@ function initMap(latitude, longitude) {
 
 var colors = ['red', 'blue', 'yellow', 'green'];
 
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=visualization&callback=initMap">
     </script>
   </body>
 </html>
