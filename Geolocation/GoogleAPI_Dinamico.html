@@ -79,6 +79,13 @@ function initMap() {
     suppressInfoWindows: true,
     clickable: true
   });
+  
+  var myLatLng = {lat: latitud, lng: longitud};
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Usted esta aquí?'
+  });
 
   layer.addListener('mouseover', function(event) {
     var style = layer.getFeatureStyle(event.featureId);
